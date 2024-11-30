@@ -25,6 +25,8 @@ class MainApp < Sinatra::Base
     set :public_folder, 'public'
   end
 
+  use Rack::Deflater
+
   helpers JWTHelpers
 
   use HealthRouter

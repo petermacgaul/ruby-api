@@ -2,12 +2,9 @@
 
 source 'https://rubygems.org'
 
-gem 'rake'
-
-gem 'activemodel', require: 'active_model'
-gem 'activerecord'
 gem 'pg'
 gem 'rack-parser', require: 'rack/parser'
+gem 'rake'
 
 gem 'bcrypt'
 gem 'jwt'
