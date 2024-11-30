@@ -1,0 +1,31 @@
+services:
+
+  testdb:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: example
+
+  devdb:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: example
+
+  webapi:
+    image: ${WEB_CONTAINER_NAME}
+    build:
+      context: .
+      dockerfile: Dockerfile
+    command: "/bin/bash"
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
+    ports:
+      - ${WEB_PORT}:${WEB_PORT}
+    environment:
+      PORT: ${WEB_PORT}
+      DEV_DB_URL: "postgres://postgres:example@devdb:5432/postgres"
+      TEST_DB_URL: "postgres://postgres:example@testdb:5432/postgres"
+    volumes:
+        - ./:/app
+    depends_on:
+      - testdb
+      - devdb
